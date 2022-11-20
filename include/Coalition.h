@@ -1,17 +1,17 @@
 #pragma once
 
-#include <map>
-#include "Party.h"
+#include <set>
 
-using std::map;
+using std::set;
 
 class Coalition{
     public:
         Coalition(int id);
         const int getTotalMandates() const;
-        void addParty(Party& p);
+        void addParty(int partyId, int partyMandates);
+        
     private:
         int mId;
         int mTotalMandates;
-        map<int, Party> mParties;
+        set<int> mParties;
 };

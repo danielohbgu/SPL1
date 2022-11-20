@@ -1,19 +1,25 @@
 #include "Simulation.h"
 
-Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents) 
+Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents)
 {
-    // You can change the implementation of the constructor, but not the signature!
+    // create a Coalition for each agent and save all Coalitions in a vector
+    for(int i = 0; i < agents.size(); i++){
+        Coalition c(i);
+        int partyId = agents[i].getPartyId();
+        c.addParty(partyId, mGraph.getParty(partyId).getMandates());
+
+        mCoalitions.push_back(c);
+    }
+    
 }
 
 void Simulation::step()
 {
-    for(int p = 0; p < mGraph.getNumVertices(); p++){
-        mGraph.partyStep(*this, p);
-    }
+    for(int i = 0; i < mGraph.getNumVertices(); i++)
+        mGraph.partyStep(*this, i);
 
-    for(int a = 0; a < mAgents.size(); a++){
-        mAgents[a].step(*this);
-    }
+    for(int i = 0; i < mAgents.size(); i++)
+        mAgents[i].step(*this);
 }
 
 bool Simulation::shouldTerminate() const

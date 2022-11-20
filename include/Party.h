@@ -32,4 +32,5 @@ private:
     JoinPolicy *mJoinPolicy;
     State mState;
     int mTimer;
+    int mCoalition;
 };

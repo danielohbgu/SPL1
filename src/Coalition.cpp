@@ -4,9 +4,11 @@ Coalition::Coalition(int id): mId(id)
 {
 }
 
-void Coalition::addParty(Party& p)
+void Coalition::addParty(int partyId, int partyMandates)
 {
-    mParties[p.getId()] = p;
+    // assumes party not in the coalition yet
+    mParties.insert(partyId);
+    mTotalMandates += partyMandates;
 }
 
 const int Coalition::getTotalMandates() const

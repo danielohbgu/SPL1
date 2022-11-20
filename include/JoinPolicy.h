@@ -1,9 +1,6 @@
 #pragma once
 
-class JoinPolicy {
-    public:
-        Party& join()
-};
+class JoinPolicy {};
 
 class MandatesJoinPolicy : public JoinPolicy {};
 
