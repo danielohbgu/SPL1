@@ -1,0 +1,14 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/spl211/Desktop/SPL1/bin",
+            "binaryPath": "/home/spl211/Desktop/SPL1/bin/cRace",
+            "binaryArgs": [
+                "../tests/01.json"
+            ]
+        },
+    ],
+    "files.associations": {
+        "tuple": "cpp"
+    },
+}

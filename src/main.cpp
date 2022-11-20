@@ -13,7 +13,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    // read simulation from config file
+    // read simulation from config filequick
     const string config_path = argv[1];
     Simulation simulation = Parser::readSimulation(argv[1]);
 

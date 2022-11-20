@@ -24,3 +24,8 @@ const Party &Graph::getParty(int partyId) const
 {
     return mVertices[partyId];
 }
+
+void Graph::partyStep(Simulation& sim, int partyId)
+{
+    mVertices[partyId].step(sim);
+}

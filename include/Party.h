@@ -23,6 +23,7 @@ public:
     int getMandates() const;
     void step(Simulation &s);
     const string &getName() const;
+    const int getId() const;
 
 private:
     int mId;
@@ -30,4 +31,5 @@ private:
     int mMandates;
     JoinPolicy *mJoinPolicy;
     State mState;
+    int mTimer;
 };
