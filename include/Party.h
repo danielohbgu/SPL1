@@ -18,6 +18,13 @@ class Party
 public:
     Party(int id, string name, int mandates, JoinPolicy *); 
 
+    // rule of 5
+    Party(const Party& other);
+    Party(Party&& other);
+    Party& operator=(const Party& other);
+    Party& operator=(Party&& other);
+    virtual ~Party();
+
     State getState() const;
     void setState(State state);
     int getMandates() const;
