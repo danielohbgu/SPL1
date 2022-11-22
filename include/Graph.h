@@ -15,7 +15,7 @@ public:
     const Party &getParty(int partyId) const;
     void partyStep(Simulation& sim, int partyId);
     Party& getNonConstParty(int partyId);
-    const vector<int> getNotJoinedNeighbourParties(int partyId) const;
+    const vector<int>* getNotJoinedNeighbourParties(int partyId) const;
 
 private:
     vector<Party> mVertices;

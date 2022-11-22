@@ -5,15 +5,15 @@ using std::vector;
 class Simulation;
 class JoinPolicy {
     public:
-        const virtual int chooseOffer(Simulation& s, vector<int> offers)=0;
+        const virtual int chooseOffer(Simulation& s, const vector<int>& offers) const=0;
 };
 
 class MandatesJoinPolicy : public JoinPolicy {
     public:
-        const int chooseOffer(Simulation& s, vector<int> offers) override;
+        const int chooseOffer(Simulation& s, const vector<int>& offers) const override;
 };
 
 class LastOfferJoinPolicy : public JoinPolicy {
     public:
-        const int chooseOffer(Simulation& s, vector<int> offers) override;
+        const int chooseOffer(Simulation& s, const vector<int>& offers) const override;
 };

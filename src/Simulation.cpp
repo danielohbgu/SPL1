@@ -53,7 +53,7 @@ const vector<Agent> &Simulation::getAgents() const
     return mAgents;
 }
 
-void Simulation::addAgent(Agent& newAgent)
+void Simulation::addAgent(Agent &&newAgent)
 {
     mAgents.push_back(newAgent);
 }

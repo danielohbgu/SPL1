@@ -1,13 +1,13 @@
 #include "Coalition.h"
 
-Coalition::Coalition(int id): mId(id), mTotalMandates(0) 
+Coalition::Coalition(int id): mId(id), mTotalMandates(0) , mParties(new vector<int>)
 {
 }
 
 void Coalition::addParty(int partyId, int partyMandates)
 {
     // assumes party not in the coalition yet
-    mParties.push_back(partyId);
+    mParties->push_back(partyId);
     mTotalMandates += partyMandates;
 }
 
@@ -16,7 +16,7 @@ const int Coalition::getTotalMandates() const
     return mTotalMandates;
 }
 
-const vector<int> Coalition::getParties() const
+const vector<int>& Coalition::getParties() const
 {
-    return mParties;
+    return *mParties;
 }

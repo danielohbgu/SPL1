@@ -7,18 +7,18 @@ class Simulation;
 
 class SelectionPolicy {
     public:
-        const virtual int chooseParty(Simulation& s, int agentPartyId)=0;
+        const virtual int chooseParty(Simulation& s, int agentPartyId) const=0;
         virtual SelectionPolicy* clone() const=0;
 };
 
 class MandatesSelectionPolicy: public SelectionPolicy{ 
     public:
-        const int chooseParty(Simulation& s, int agentPartyId) override;
+        const int chooseParty(Simulation& s, int agentPartyId) const override;
         SelectionPolicy*  clone() const override;
 };
 
 class EdgeWeightSelectionPolicy: public SelectionPolicy{ 
     public:
-        const int chooseParty(Simulation& s, int agentPartyId) override;
+        const int chooseParty(Simulation& s, int agentPartyId) const override;
         SelectionPolicy*  clone() const override;
 };

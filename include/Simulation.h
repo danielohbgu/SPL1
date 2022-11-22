@@ -24,7 +24,7 @@ public:
     const vector<vector<int>> getPartiesByCoalitions() const;
     const int getCoalitionMandates(const int coalitionId) const;
     void addPartyToCoalition(int partyId, int partyMandates, int coalitionId);
-    void addAgent(Agent& newAgent);
+    void addAgent(Agent &&newAgent);
     void offerParty(int partyId, int coalitionId);
 
 private:

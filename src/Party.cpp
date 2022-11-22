@@ -56,9 +56,8 @@ void Party::step(Simulation &s)
             std::cout << "[" << agent.getId() << ", " << agent.getPartyId() << "], ";
         std::cout << std::endl;
         std::cout << "Creating Agent#" << lastId << std::endl;
-        Agent clone(lastId, mId, s.getAgents()[mCoalitionId].cloneSelectionPolicy());
         std::cout << "Adding Agent#" << lastId << " to the simulation" << std::endl;
-        s.addAgent(clone);
+        s.addAgent(Agent(lastId, mId, s.getAgents()[mCoalitionId].cloneSelectionPolicy()));
         std::cout << "All agents after adding: ";
         for (Agent agent : s.getAgents())
             std::cout << "[" << agent.getId() << ", " << agent.getPartyId() << "], ";

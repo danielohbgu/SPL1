@@ -1,6 +1,6 @@
 #include "JoinPolicy.h"
 #include "Simulation.h"
-const int MandatesJoinPolicy::chooseOffer(Simulation& s, vector<int> offers)
+const int MandatesJoinPolicy::chooseOffer(Simulation& s, const vector<int>& offers) const
 {
     int maxMandatesIdx = 0;
 
@@ -11,7 +11,7 @@ const int MandatesJoinPolicy::chooseOffer(Simulation& s, vector<int> offers)
     return offers[maxMandatesIdx];
 }
 
-const int LastOfferJoinPolicy::chooseOffer(Simulation& s, vector<int> offers)
+const int LastOfferJoinPolicy::chooseOffer(Simulation& s, const vector<int>& offers) const
 {
     return offers[offers.size() -1];
 }

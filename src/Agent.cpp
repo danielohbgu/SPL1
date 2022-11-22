@@ -3,9 +3,7 @@
 #include <iostream>
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
-{
-    // You can change the implementation of the constructor, but not the signature!
-}
+{}
 
 int Agent::getId() const
 {

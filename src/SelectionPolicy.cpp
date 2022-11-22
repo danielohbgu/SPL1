@@ -2,19 +2,21 @@
 #include "Simulation.h"
 #include <iostream>
 
-const int MandatesSelectionPolicy::chooseParty(Simulation& s, int agentId)
+const int MandatesSelectionPolicy::chooseParty(Simulation& s, int agentId) const
 {
     int maxMandatesIdx = 0;
     int agentPartyId=s.getAgents()[agentId].getPartyId();
-    vector<int> parties = s.getGraph().getNotJoinedNeighbourParties(agentPartyId);
+    const vector<int>* parties = s.getGraph().getNotJoinedNeighbourParties(agentPartyId);
 
     // remove parties that already considering joining my coalition
     int myCoalition = s.getParty(agentPartyId).getCoalition();
     vector<int> filterParties;
-    for(int i = 0; i < parties.size(); i++)
-        if(!s.getParty(parties[i]).isAlreadyConsidering(myCoalition)){
-            filterParties.push_back(parties[i]);
+    for(int i = 0; i < parties->size(); i++)
+        if(!s.getParty(parties->at(i)).isAlreadyConsidering(myCoalition)){
+            filterParties.push_back(parties->at(i));
         }
+    
+    delete parties;
     
     std::cout << "[";
     for (int partyId : filterParties)
@@ -36,18 +38,20 @@ SelectionPolicy* MandatesSelectionPolicy::clone() const
     return new MandatesSelectionPolicy;
 }
 
-const int EdgeWeightSelectionPolicy::chooseParty(Simulation& s, int agentId)
+const int EdgeWeightSelectionPolicy::chooseParty(Simulation& s, int agentId) const
 {
     int  maxWeightIdx = 0;
     int agentPartyId=s.getAgents()[agentId].getPartyId();
-    vector<int> parties = s.getGraph().getNotJoinedNeighbourParties(agentPartyId);
+    const vector<int>* parties = s.getGraph().getNotJoinedNeighbourParties(agentPartyId);
     vector<int> filterParties;
     // remove parties that already considering joining my coalition
     int myCoalition = s.getParty(agentPartyId).getCoalition();
-    for(int i = 0; i < parties.size(); i++)
-        if(!s.getParty(parties[i]).isAlreadyConsidering(myCoalition)){
-            filterParties.push_back(parties[i]);
+    for(int i = 0; i < parties->size(); i++)
+        if(!s.getParty(parties->at(i)).isAlreadyConsidering(myCoalition)){
+            filterParties.push_back(parties->at(i));
         }
+    
+    delete parties;
     
     std::cout << "[";
     for (int partyId : filterParties)

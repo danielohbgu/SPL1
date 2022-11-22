@@ -8,10 +8,10 @@ class Coalition{
         Coalition(int id);
         const int getTotalMandates() const;
         void addParty(int partyId, int partyMandates);
-        const vector<int> getParties() const;
+        const vector<int>& getParties() const;
         
     private:
         int mId;
         int mTotalMandates;
-        vector<int> mParties;
+        vector<int>* mParties;
 };
