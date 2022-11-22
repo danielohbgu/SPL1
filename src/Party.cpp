@@ -7,6 +7,71 @@ Party::Party(int id, string name, int mandates, JoinPolicy *jp) :
     mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), mCoalitionId(-1), mTimer(0)
 {}
 
+Party::Party(const Party& other) :
+    mId(other.mId), 
+    mName(other.mName), 
+    mMandates(other.mMandates), 
+    mJoinPolicy(other.mJoinPolicy->clone()), 
+    mState(other.mState), 
+    mCoalitionId(other.mCoalitionId),
+    mTimer(other.mTimer)
+{}
+
+Party::Party(Party&& other) :
+    mId(other.mId), 
+    mName(other.mName), 
+    mMandates(other.mMandates), 
+    mJoinPolicy(other.mJoinPolicy), 
+    mState(other.mState), 
+    mCoalitionId(other.mCoalitionId),
+    mTimer(other.mTimer)
+{
+    other.mJoinPolicy = nullptr;
+}
+
+Party& Party::operator=(const Party& other)
+{
+    if (this != &other){
+        mId = other.mId;
+        mName = other.mName;
+        mMandates = other.mMandates;
+
+        delete mJoinPolicy;
+        mJoinPolicy = other.mJoinPolicy->clone();
+
+        mState = other.mState;
+        mCoalitionId = other.mCoalitionId;
+        mTimer = other.mTimer;
+    }
+
+    return *this;
+}
+
+Party& Party::operator=(Party&& other)
+{
+    if (this != &other){
+        mId = other.mId;
+        mName = other.mName;
+        mMandates = other.mMandates;
+
+        delete mJoinPolicy;
+        mJoinPolicy = other.mJoinPolicy;
+        other.mJoinPolicy = nullptr;
+
+        mState = other.mState;
+        mCoalitionId = other.mCoalitionId;
+        mTimer = other.mTimer;
+    }
+
+    return *this;
+}
+
+Party::~Party()
+{
+    if(mJoinPolicy != nullptr)
+        delete mJoinPolicy;
+}
+
 State Party::getState() const
 {
     return mState;

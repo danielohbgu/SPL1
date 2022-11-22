@@ -11,7 +11,17 @@ const int MandatesJoinPolicy::chooseOffer(Simulation& s, const vector<int>& offe
     return offers[maxMandatesIdx];
 }
 
+JoinPolicy* MandatesJoinPolicy::clone() const
+{
+    return new MandatesJoinPolicy;
+}
+
 const int LastOfferJoinPolicy::chooseOffer(Simulation& s, const vector<int>& offers) const
 {
     return offers[offers.size() -1];
+}
+
+JoinPolicy* LastOfferJoinPolicy::clone() const
+{
+    return new LastOfferJoinPolicy;
 }
