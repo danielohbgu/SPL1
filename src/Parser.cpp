@@ -1,4 +1,8 @@
 #include "Parser.h"
+#include "Simulation.h"
+#include "Party.h"
+#include "Agent.h"
+#include "Graph.h"
 
 Simulation Parser::readSimulation(const string &path)
 {

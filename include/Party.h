@@ -3,8 +3,7 @@
 
 using std::string;
 
-class JoinPolicy;
-class Simulation;
+#include "JoinPolicy.h"
 
 enum State
 {
@@ -13,6 +12,7 @@ enum State
     Joined
 };
 
+class Simulation;
 class Party
 {
 public:
@@ -24,6 +24,10 @@ public:
     void step(Simulation &s);
     const string &getName() const;
     const int getId() const;
+    void setCoalition(int coalitionId);
+    void addOffer(int coalitionId);
+    const int getCoalition() const;
+    const bool isAlreadyConsidering(int coalitionId) const;
 
 private:
     int mId;
@@ -32,5 +36,6 @@ private:
     JoinPolicy *mJoinPolicy;
     State mState;
     int mTimer;
-    int mCoalition;
+    int mCoalitionId;
+    vector<int> mOffers;
 };

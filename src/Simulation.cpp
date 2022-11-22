@@ -1,4 +1,6 @@
 #include "Simulation.h"
+#include "Party.h"
+#include <iostream>
 
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents)
 {
@@ -6,8 +8,11 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
     for(int i = 0; i < agents.size(); i++){
         Coalition c(i);
         int partyId = agents[i].getPartyId();
-        c.addParty(partyId, mGraph.getParty(partyId).getMandates());
+        Party& p = mGraph.getNonConstParty(partyId);
 
+        c.addParty(partyId, p.getMandates());
+        p.setCoalition(i);
+        p.setState(Joined);
         mCoalitions.push_back(c);
     }
     
@@ -17,6 +22,7 @@ void Simulation::step()
 {
     for(int i = 0; i < mGraph.getNumVertices(); i++)
         mGraph.partyStep(*this, i);
+    
 
     for(int i = 0; i < mAgents.size(); i++)
         mAgents[i].step(*this);
@@ -24,7 +30,16 @@ void Simulation::step()
 
 bool Simulation::shouldTerminate() const
 {
-    // TODO implement this method
+    for (int i = 0; i < mCoalitions.size(); i++){
+        if (mCoalitions[i].getTotalMandates() > 60)
+            return true;
+    }
+
+    for(int i = 0; i < mGraph.getNumVertices(); i++){
+        if (mGraph.getParty(i).getState() != Joined)
+            return false;
+    }
+
     return true;
 }
 
@@ -38,15 +53,39 @@ const vector<Agent> &Simulation::getAgents() const
     return mAgents;
 }
 
+void Simulation::addAgent(Agent& newAgent)
+{
+    mAgents.push_back(newAgent);
+}
+
 const Party &Simulation::getParty(int partyId) const
 {
     return mGraph.getParty(partyId);
+}
+
+const int Simulation::getCoalitionMandates(const int coalitionId) const
+{
+    return mCoalitions[coalitionId].getTotalMandates();
+}
+
+void Simulation::addPartyToCoalition(int partyId, int partyMandates, int coalitionId)
+{
+    mCoalitions[coalitionId].addParty(partyId, partyMandates);
+}
+
+void Simulation::offerParty(int partyId, int coalitionId)
+{
+    mGraph.getNonConstParty(partyId).addOffer(coalitionId);
 }
 
 /// This method returns a "coalition" vector, where each element is a vector of party IDs in the coalition.
 /// At the simulation initialization - the result will be [[agent0.partyId], [agent1.partyId], ...]
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
-    // TODO: you MUST implement this method for getting proper output, read the documentation above.
-    return vector<vector<int>>();
+    vector<vector<int>> coalitions;
+
+    for (int i = 0; i < mCoalitions.size(); i++)
+        coalitions.push_back(mCoalitions[i].getParties());
+        
+    return coalitions;
 }

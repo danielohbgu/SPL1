@@ -1,7 +1,19 @@
 #pragma once
+#include <vector>
+//#include "Simulation.h"
+using std::vector;
+class Simulation;
+class JoinPolicy {
+    public:
+        const virtual int chooseOffer(Simulation& s, vector<int> offers)=0;
+};
 
-class JoinPolicy {};
+class MandatesJoinPolicy : public JoinPolicy {
+    public:
+        const int chooseOffer(Simulation& s, vector<int> offers) override;
+};
 
-class MandatesJoinPolicy : public JoinPolicy {};
-
-class LastOfferJoinPolicy : public JoinPolicy {};
+class LastOfferJoinPolicy : public JoinPolicy {
+    public:
+        const int chooseOffer(Simulation& s, vector<int> offers) override;
+};

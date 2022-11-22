@@ -1,9 +1,12 @@
 #include <iostream>
 #include <iomanip>
 #include "Parser.h"
+#include "Simulation.h"
 
 using std::cout;
 using std::endl;
+
+
 
 int main(int argc, char **argv)
 {
@@ -19,10 +22,14 @@ int main(int argc, char **argv)
 
     // run simulation and store json state after each iteration
     vector<json> outPerIter = {Parser::makeJson(simulation)};
+    int count = 0;
     while (!simulation.shouldTerminate())
     {
+        std::cout << "Start Iteration#" << count << std::endl;
         simulation.step();
+        std::cout << "End Iteration#" << count << std::endl;
         outPerIter.push_back(Parser::makeJson(simulation));
+        count++;
     }
 
     // writing the outputs list to a file

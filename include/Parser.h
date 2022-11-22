@@ -2,15 +2,21 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
+#include <vector>
 #include "json.hpp"
-#include "Simulation.h"
-#include "Agent.h"
-#include "SelectionPolicy.h"
-#include "JoinPolicy.h"
+//#include "Simulation.h"
+//#include "Agent.h"
+//#include "SelectionPolicy.h"
+//#include "JoinPolicy.h"
 
 using json = nlohmann::json;
 using std::string;
+using std::vector;
+
+class Simulation;
+class Graph;
+class Party;
+class Agent;
 
 class Parser
 {

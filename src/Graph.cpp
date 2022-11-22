@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include "Simulation.h"
 
 Graph::Graph(vector<Party> vertices, vector<vector<int>> edges) : mVertices(vertices), mEdges(edges) 
 {
@@ -25,7 +26,24 @@ const Party &Graph::getParty(int partyId) const
     return mVertices[partyId];
 }
 
+Party &Graph::getNonConstParty(int partyId)
+{
+    return mVertices[partyId];
+}
+
+
 void Graph::partyStep(Simulation& sim, int partyId)
 {
     mVertices[partyId].step(sim);
+}
+
+const vector<int> Graph::getNotJoinedNeighbourParties(int partyId) const
+{
+    vector<int> parties;
+
+    for (int i = 0; i < mEdges.size(); i++)
+        if (mEdges[partyId][i] > 0 && mVertices[i].getState() != Joined)
+            parties.push_back(i);
+    
+    return parties;
 }
