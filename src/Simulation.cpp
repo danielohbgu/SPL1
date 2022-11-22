@@ -2,10 +2,10 @@
 #include "Party.h"
 #include <iostream>
 
-Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents)
+Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), mCoalitions(vector<Coalition>())
 {
     // create a Coalition for each agent and save all Coalitions in a vector
-    for(int i = 0; i < agents.size(); i++){
+    for(unsigned int i = 0; i < agents.size(); i++){
         Coalition c(i);
         int partyId = agents[i].getPartyId();
         Party& p = mGraph.getNonConstParty(partyId);
@@ -24,13 +24,13 @@ void Simulation::step()
         mGraph.partyStep(*this, i);
     
 
-    for(int i = 0; i < mAgents.size(); i++)
+    for(unsigned int i = 0; i < mAgents.size(); i++)
         mAgents[i].step(*this);
 }
 
 bool Simulation::shouldTerminate() const
 {
-    for (int i = 0; i < mCoalitions.size(); i++){
+    for (unsigned int i = 0; i < mCoalitions.size(); i++){
         if (mCoalitions[i].getTotalMandates() > 60)
             return true;
     }
@@ -84,7 +84,7 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     vector<vector<int>> coalitions;
 
-    for (int i = 0; i < mCoalitions.size(); i++)
+    for (unsigned int i = 0; i < mCoalitions.size(); i++)
         coalitions.push_back(mCoalitions[i].getParties());
         
     return coalitions;

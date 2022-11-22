@@ -4,7 +4,7 @@
 #include <iostream>
 
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) : 
-    mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), mCoalitionId(-1), mTimer(0)
+    mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), mCoalitionId(-1), mTimer(0), mOffers(vector<int>())
 {}
 
 Party::Party(const Party& other) :
@@ -14,7 +14,8 @@ Party::Party(const Party& other) :
     mJoinPolicy(other.mJoinPolicy->clone()), 
     mState(other.mState), 
     mCoalitionId(other.mCoalitionId),
-    mTimer(other.mTimer)
+    mTimer(other.mTimer),
+    mOffers(other.mOffers)
 {}
 
 Party::Party(Party&& other) :
@@ -24,7 +25,8 @@ Party::Party(Party&& other) :
     mJoinPolicy(other.mJoinPolicy), 
     mState(other.mState), 
     mCoalitionId(other.mCoalitionId),
-    mTimer(other.mTimer)
+    mTimer(other.mTimer),
+    mOffers(other.mOffers)
 {
     other.mJoinPolicy = nullptr;
 }
@@ -42,6 +44,7 @@ Party& Party::operator=(const Party& other)
         mState = other.mState;
         mCoalitionId = other.mCoalitionId;
         mTimer = other.mTimer;
+        mOffers=other.mOffers;
     }
 
     return *this;
@@ -61,6 +64,7 @@ Party& Party::operator=(Party&& other)
         mState = other.mState;
         mCoalitionId = other.mCoalitionId;
         mTimer = other.mTimer;
+        mOffers=other.mOffers;
     }
 
     return *this;
@@ -137,7 +141,7 @@ void Party::step(Simulation &s)
 
 void Party::addOffer(int coalitionId)
 {
-    for(int i=0; i<mOffers.size(); i++)
+    for(unsigned int i=0; i<mOffers.size(); i++)
         if(mOffers[i]==coalitionId)
             return;
 

@@ -42,7 +42,7 @@ private:
     int mMandates;
     JoinPolicy *mJoinPolicy;
     State mState;
-    int mTimer;
     int mCoalitionId;
+    int mTimer;
     vector<int> mOffers;
 };

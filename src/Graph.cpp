@@ -41,7 +41,7 @@ const vector<int>* Graph::getNotJoinedNeighbourParties(int partyId) const
 {
     vector<int>* parties = new vector<int>;
 
-    for (int i = 0; i < mEdges.size(); i++)
+    for (unsigned int i = 0; i < mEdges.size(); i++)
         if (mEdges[partyId][i] > 0 && mVertices[i].getState() != Joined)
             parties->push_back(i);
     
