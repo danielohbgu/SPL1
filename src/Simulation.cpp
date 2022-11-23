@@ -1,6 +1,5 @@
 #include "Simulation.h"
 #include "Party.h"
-#include <iostream>
 
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), mCoalitions(vector<Coalition>())
 {

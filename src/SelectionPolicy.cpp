@@ -1,6 +1,5 @@
 #include "SelectionPolicy.h"
 #include "Simulation.h"
-#include <iostream>
 
 const int MandatesSelectionPolicy::chooseParty(Simulation& s, int agentId) const
 {
@@ -17,11 +16,6 @@ const int MandatesSelectionPolicy::chooseParty(Simulation& s, int agentId) const
         }
     
     delete parties;
-    
-    std::cout << "[";
-    for (int partyId : filterParties)
-        std::cout << partyId << ", ";
-    std::cout << "]" << std::endl;
 
     if(filterParties.empty())
         return -1;
@@ -54,11 +48,6 @@ const int EdgeWeightSelectionPolicy::chooseParty(Simulation& s, int agentId) con
         }
     
     delete parties;
-    
-    std::cout << "[";
-    for (int partyId : filterParties)
-        std::cout << partyId << ", ";
-    std::cout << "]" << std::endl;
     
     if(filterParties.empty())
         return -1;

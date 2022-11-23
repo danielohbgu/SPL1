@@ -1,7 +1,6 @@
 #include "Party.h"
 #include "Simulation.h"
 #include "Agent.h"
-#include <iostream>
 
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) : 
     mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), mCoalitionId(-1), mTimer(0), mOffers(vector<int>())
@@ -112,25 +111,13 @@ void Party::step(Simulation &s)
 
     if (mTimer == 3)
     {
-        std::cout << "choosing coalition for Party#" << mId << std::endl;
         // add party to coalition
         mCoalitionId = mJoinPolicy->chooseOffer(s, mOffers);
-        std::cout << "joining Party#" << mId << " to Coalition#" << mCoalitionId << std::endl;
         s.addPartyToCoalition(mId, mMandates, mCoalitionId);
 
         // clone agent
         int lastId = s.getAgents().size();
-        std::cout << "All agents: ";
-        for (Agent agent : s.getAgents())
-            std::cout << "[" << agent.getId() << ", " << agent.getPartyId() << "], ";
-        std::cout << std::endl;
-        std::cout << "Creating Agent#" << lastId << std::endl;
-        std::cout << "Adding Agent#" << lastId << " to the simulation" << std::endl;
         s.addAgent(Agent(lastId, mId, s.getAgents()[mCoalitionId].cloneSelectionPolicy()));
-        std::cout << "All agents after adding: ";
-        for (Agent agent : s.getAgents())
-            std::cout << "[" << agent.getId() << ", " << agent.getPartyId() << "], ";
-        std::cout << std::endl;
         
         // change state to Joined
         mState = Joined;

@@ -25,9 +25,7 @@ int main(int argc, char **argv)
     int count = 0;
     while (!simulation.shouldTerminate())
     {
-        std::cout << "Start Iteration#" << count << std::endl;
         simulation.step();
-        std::cout << "End Iteration#" << count << std::endl;
         outPerIter.push_back(Parser::makeJson(simulation));
         count++;
     }
