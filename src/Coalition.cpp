@@ -9,9 +9,8 @@ Coalition::Coalition(const Coalition& other) : mId(other.mId), mTotalMandates(ot
 
 Coalition::~Coalition()
 {
-    if(mParties!=nullptr){
+    if(mParties!=nullptr)
         delete mParties;
-    }
 }
 
 Coalition& Coalition::operator=(const Coalition& other)
@@ -35,9 +34,9 @@ Coalition& Coalition::operator=(Coalition&& other)
     if(this != &other){
         delete mParties;
         mParties=other.mParties;
+        other.mParties=nullptr;
         mId=other.mId;
         mTotalMandates=other.mTotalMandates;
-        other.mParties=nullptr;
     }
     return *this;
 }

@@ -16,6 +16,7 @@ const int MandatesSelectionPolicy::chooseParty(Simulation& s, int agentId) const
         }
     
     delete parties;
+    parties = nullptr;
 
     if(filterParties.empty())
         return -1;
@@ -48,6 +49,7 @@ const int EdgeWeightSelectionPolicy::chooseParty(Simulation& s, int agentId) con
         }
     
     delete parties;
+    parties = nullptr;
     
     if(filterParties.empty())
         return -1;
